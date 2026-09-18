@@ -1,0 +1,36 @@
+services:
+  - type: worker
+    name: lyon-discord-manager
+    runtime: python3
+    plan: starter
+    buildCommand: apt-get update -qq && apt-get install -y -qq unzip && unzip -q Lyon-Discord-Manager-sanitized.zip && pip install -r Lyon-Discord-Manager/bot/requirements.txt
+    startCommand: cd Lyon-Discord-Manager/bot && python -u main.py
+    disk:
+      name: bot-data
+      mountPath: /data/systempro
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13"
+      - key: SYNC_EMOJIS
+        value: "false"
+      - key: SYSTEMPRO_DATA_DIR
+        value: /data/systempro
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: BOT_ID
+        sync: false
+      - key: OWNER_ID
+        sync: false
+      - key: BOT_SERVER_ID
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: GROQ_API_KEYS
+        sync: false
+      - key: WHATSAPP_API_URL
+        sync: false
+      - key: WHATSAPP_API_KEY
+        sync: false
+      - key: WHATSAPP_INSTANCE
+        sync: false
